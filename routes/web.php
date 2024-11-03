@@ -12,5 +12,7 @@ Route::get('about', [PageController::class, 'about']);
 
 Route::get('articles', [ArticleController::class, 'index'])->name('article.index');
 Route::get('articles/create', [ArticleController::class, 'create'])->name('article.create');
-Route::get('articles/{id}', [ArticleController::class, 'show'])->name('article.show');
+Route::get('articles/{article}', [ArticleController::class, 'show'])->name('article.show');
 Route::post('articles', [ArticleController::class, 'store'])->name('article.store');
+Route::get('articles/{article}/edit', [ArticleController::class, 'edit'])->name('article.edit');
+Route::patch('articles/{article}', [ArticleController::class, 'update'])->name('article.update');

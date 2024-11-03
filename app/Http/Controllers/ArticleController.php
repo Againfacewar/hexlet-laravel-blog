@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ArticleRequest;
 use App\Models\Article;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -29,16 +30,28 @@ class ArticleController extends Controller
         return view('article.create', compact('article'));
     }
 
-    public function store(Request $request)
+    public function store(ArticleRequest $request)
     {
-        $data = $request->validate([
-           'name' => 'required|unique:articles',
-           'body' => 'required|min:10'
-        ]);
+        $data = $request->validated();
 
         $article = Article::create($data);
 
         $request->session()->flash('status', 'Статья успешно создана!');
+
+        return redirect()->route('article.index');
+    }
+
+    public function edit(Request $request, Article $article)
+    {
+        return view('article.edit', compact('article'));
+    }
+
+    public function update(ArticleRequest $request, Article $article)
+    {
+        $data = $request->validated();
+
+        $article->update($data);
+        $request->session()->flash('status', 'Статья успешно отредактирована!');
 
         return redirect()->route('article.index');
     }
