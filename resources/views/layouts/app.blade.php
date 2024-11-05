@@ -12,8 +12,8 @@
 <body>
 <header>
     <nav class="d-flex">
-        <a href="{{ route('article.index') }}">Статьи</a>
-        <a href="{{ route('article.create') }}">Новая статья</a>
+        <a href="{{ route('articles.index') }}">Статьи</a>
+        <a href="{{ route('articles.create') }}">Новая статья</a>
     </nav>
 </header>
 <div class="container mt-4">

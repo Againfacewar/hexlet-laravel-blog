@@ -4,34 +4,32 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ArticleRequest;
 use App\Models\Article;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
-class ArticleController extends Controller
+class ArticleControllerLegacy extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index(Request $request)
     {
         $articles = Article::paginate();
         $flash = $request->session()->get('status');
-
         return view('article.index', compact('articles', 'flash'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function show(Request $request, $id)
+    {
+        $article = Article::findOrFail($id);
+
+        return view('article.show', compact('article'));
+    }
+
+    public function create(Request $request)
     {
         $article = new Article();
 
         return view('article.create', compact('article'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(ArticleRequest $request)
     {
         $data = $request->validated();
@@ -43,25 +41,11 @@ class ArticleController extends Controller
         return redirect()->route('article.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Article $article)
-    {
-        return view('article.show', compact('article'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Article $article)
+    public function edit(Request $request, Article $article)
     {
         return view('article.edit', compact('article'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(ArticleRequest $request, Article $article)
     {
         $data = $request->validated();
@@ -72,13 +56,14 @@ class ArticleController extends Controller
         return redirect()->route('article.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Request $request, Article $article)
+    public function destroy(Request $request, int $id)
     {
-        $article->delete();
-        $request->session()->flash('status', 'Статья успешно удалена!');
+        $article = Article::find($id);
+
+        if (isset($article)) {
+            $article->delete();
+            $request->session()->flash('status', 'Статья успешно удалена!');
+        }
 
         return redirect()->route('article.index');
     }

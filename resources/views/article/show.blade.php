@@ -2,7 +2,7 @@
 @section('title', $article->name)
 
 @section('content')
-    <p><a href="{{ route('article.index') }}">Назад</a></p>
+    <p><a href="{{ route('articles.index') }}">Назад</a></p>
     <h1>{{ $article->name }}</h1>
     <div>{{ $article->body }}</div>
 @endsection

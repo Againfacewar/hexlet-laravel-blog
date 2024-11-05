@@ -9,9 +9,9 @@
         </div>
     @endisset
     @foreach($articles as $item)
-        <h1><a href="{{ route('article.show', $item) }}">{{  $item->name }}</a></h1>
-        <h1><a href="{{ route('article.edit', $item) }}">Редактировать</a></h1>
-        <form action="{{ route('article.destroy', $item) }}" method="POST">
+        <h1><a href="{{ route('articles.show', $item) }}">{{  $item->name }}</a></h1>
+        <h1><a href="{{ route('articles.edit', $item) }}">Редактировать</a></h1>
+        <form action="{{ route('articles.destroy', $item) }}" method="POST">
             @csrf
             @method('DELETE')
             <h1><button>Удалить</button></h1>

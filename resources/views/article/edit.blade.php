@@ -3,7 +3,7 @@
 
 @section('content')
     <h1 class="mb-2">Редактирование статьи</h1>
-    {{ html()->modelForm($article, 'PATCH', route('article.update', $article))->open() }}
+    {{ html()->modelForm($article, 'PATCH', route('articles.update', $article))->open() }}
         @include('article.form')
         {{ html()->submit('Обновить')->class('btn btn-primary') }}
     {{ html()->closeModelForm() }}
