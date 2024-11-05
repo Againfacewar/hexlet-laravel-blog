@@ -55,4 +55,16 @@ class ArticleController extends Controller
 
         return redirect()->route('article.index');
     }
+
+    public function destroy(Request $request, int $id)
+    {
+        $article = Article::find($id);
+
+        if (isset($article)) {
+            $article->delete();
+            $request->session()->flash('status', 'Статья успешно удалена!');
+        }
+
+        return redirect()->route('article.index');
+    }
 }

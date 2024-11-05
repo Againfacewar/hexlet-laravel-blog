@@ -11,6 +11,11 @@
     @foreach($articles as $item)
         <h1><a href="{{ route('article.show', $item) }}">{{  $item->name }}</a></h1>
         <h1><a href="{{ route('article.edit', $item) }}">Редактировать</a></h1>
+        <form action="{{ route('article.destroy', $item) }}" method="POST">
+            @csrf
+            @method('DELETE')
+            <h1><button>Удалить</button></h1>
+        </form>
         <div class="">{{ \Str::limit($item->body, 200) }}</div>
     @endforeach
 @endsection
